@@ -1,14 +1,14 @@
 import sqlite3
 import os
 
-class thing:
+class DB:
     file = "../database.db"
 
     def __init__(self):
         self.conn = sqlite3.connect(os.path.join(os.path.dirname(os.path.abspath(__file__)), self.file))
         self.conn.row_factory = sqlite3.Row
         self.cursor = self.conn.cursor()
-        self.createStructure()
+        self.create_structure()
 
     def execute(self, query, args = ()):
         try:
@@ -28,7 +28,7 @@ class thing:
 
     def create_structure(self):
         self.execute("""CREATE TABLE IF NOT EXISTS points_table (
-            user_id VARCHAR(18) NOT NULL,
+            user_id INTEGER NOT NULL,
             points INTEGER NOT NULL,
             PRIMARY KEY (user_id));""")
     
