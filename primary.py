@@ -13,7 +13,13 @@ async def on_ready(self):
 @client.command()
 async def qrcode(message):
     qr.qrGen.create()
-    await message.channel.send(file = discord.File('qrcode_test.png'))
+    result = database.thing.find_points(message.author.id, 0)
+    await message.channel.send(f'{result}', file = discord.File('qrcode_test.png'))
+    #if i == False:
+    #    i = 0
+    #    return True
+    #database.DB.update_points(int(message.author.id, int(i) + 1))
+    #await message.channel.send(f"{message.author.mention} has {i} points!")
 
 client.run(config.TOKEN)
 
