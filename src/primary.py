@@ -19,7 +19,7 @@ async def qrcode(message):
     i = Bot.database.find_points(message.author.id)
     if i == False:
         i = 0
-    await message.channel.send(f"Current balance: {i}", file = discord.File('qrcode_test.png'))
+    await message.channel.send(f"Current balance: {i}", file = discord.File('assets/qrcode_test.png'))
     Bot.database.update_points(int(message.author.id), int(i) + 1)
 
 client.run(config.TOKEN)
