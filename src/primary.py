@@ -1,6 +1,7 @@
 import discord
 from database import DB
 from discord.ext import commands
+from asset import Asset
 import qrcodegen as qr
 import config
 
@@ -18,13 +19,12 @@ async def on_ready():
 @client.command(description = "Generates a QR Code for the user to use to claim a free token")
 async def qrcode(message):
     qr.qrGen.create()
-    file = discord.File("assets/qrcode_test.png", filename="qrcode_test.png")
     embed= discord.Embed(title="QR Code", description = "Scan this to get a free token!", color = 0xffffff)
     embed.set_image(url = "attachment://qrcode_test.png")
     i = Bot.database.find_points(message.author.id)
     if i == False:
         i = 0
-    await message.channel.send(file=file, embed=embed)
+    await message.channel.send(file=Asset.getFile('qrcode_test.png'), embed=embed)
     Bot.database.update_points(int(message.author.id), int(i) + 1)
 
 @client.command(description = "Pong!")
